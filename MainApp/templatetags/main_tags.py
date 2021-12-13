@@ -1,8 +1,38 @@
+import random
+
 from django import template
 from MainApp.models import *
+
 register = template.Library()
 
 
+@register.filter
+def next(some_list, current_index):
+    """
+    Returns the next element of the list using the current index if it exists.
+    Otherwise returns an empty string.
+    """
+    try:
+        return some_list[int(current_index) + 1]  # access the next element
+    except:
+        return some_list[0]  # return empty string in case of exception
+
+
+@register.filter
+def previous(some_list, current_index):
+    """
+    Returns the previous element of the list using the current index if it exists.
+    Otherwise returns an empty string.
+    """
+    try:
+        return some_list[int(current_index) - 1]  # access the previous element
+    except:
+        return some_list[len(some_list) - 1]  # return empty string in case of exception
+
+
+@register.simple_tag()
+def get_rand_img_url(url):
+    return url + "?" + str(random.randint(10, 10000))
 # @register.inclusion_tag('main/list_playlists.html')
 # def show_playlists(curr_id=1):
 #     pl = Playlist.objects.all()

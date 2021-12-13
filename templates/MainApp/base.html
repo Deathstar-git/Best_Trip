@@ -9,6 +9,7 @@
     <link type="text/css" href="/media/css/styles.css" rel="stylesheet"/>
     <link type="text/css" href="/media/css/mobile_styles.css" rel="stylesheet" media="(max-device-width: 720px)"/>
     <link rel="shorcut icon" href="/media/images/icon.ico" type="images/x-icon"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
 
 </head>
@@ -24,6 +25,16 @@
     {% endfor %}
   </div>
     </header>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+    $(".carousel").on("click","a", function (event) {
+        var id  = $(this).attr('href'),
+            top = $(id).offset().top - $(id).height();
+        $('body,html').animate({scrollTop: top}, 500);
+    });
+});
+</script>
 {% endblock mainmenu %}
 {% block content %}
 {% endblock %}

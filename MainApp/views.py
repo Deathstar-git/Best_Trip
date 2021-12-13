@@ -1,10 +1,14 @@
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 # from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
 from .utils import *
 from django.views.generic import ListView, CreateView
 from .models import *
 from django.contrib.auth.views import LoginView
 from .forms import RegisterUserForm, LoginUserForm
+from django.contrib.auth.models import User
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 
 class MainPage(DataMixin, ListView):
@@ -40,7 +44,7 @@ class LoginUser(DataMixin,  LoginView):
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_success_url(self):
-        return reverse('main')  # на какую страничку перейти в случае успеха
+        return reverse('my')  # на какую страничку перейти в случае успеха
 
 
 class RegisterUser(DataMixin, CreateView):
@@ -60,6 +64,51 @@ class RegisterUser(DataMixin, CreateView):
 
     def get_success_url(self):
         return reverse('login')
+
+
+class ProfilePage(DataMixin, ListView):
+    model = Post
+    template_name = 'MainApp/profile_page.html'
+    context_object_name = 'post'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Профиль')
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_queryset(self):
+        print(self.request.user.pk)
+        try:
+            acc = Account.objects.get(user_id=self.request.user.pk)
+            return Post.objects.filter(author_id=acc.pk)
+        except ObjectDoesNotExist:
+            return redirect('main')
+
+
+
+
+class AddPostPage(DataMixin, CreateView):
+    form_class = RegisterUserForm
+    template_name = 'MainApp/register.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Регистрация')
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def form_valid(self, form):
+        u = form.save(commit=False)
+        u.save()
+        Account.objects.create(user=u)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('my')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('main')
 
 
 def page_not_found(request, exception):

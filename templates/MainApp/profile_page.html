@@ -1,0 +1,66 @@
+{% extends 'MainApp/base.html'%}
+{% block content %}
+{% load main_tags %}
+<div class="main">
+    {% if request.user.is_authenticated %}
+    <h1>{{ title }} {{ request.user.username }} | <a class="a-logout" href="{% url 'logout' %}" style="color: black">Выйти</a></h1>
+        {% else %}
+        <h1>{{ title }}</h1>
+    {% endif %}
+    <div class="account-info" style=" margin-left: 35%; padding-bottom: 350px;">
+        <h1>Мои посты</h1>
+        {% if post %}
+        {% for p in post.all %}
+            <div class="post_div">
+            <div class="username_post_div">
+                <h3>{{ user.username }}</h3>
+            </div>
+            <h4>{{ p.title }}</h4>
+            {% if p.gallery %}
+                 <section class="carousel" aria-label="Gallery">
+                    <ol class="carousel__viewport">
+            {% with images=p.gallery.all%}
+            {% for i in images %}
+            <li id="carousel__slide{{ i.pk}}"
+        tabindex="0"
+        class="carousel__slide">
+        <img src="{% get_rand_img_url i.img.url %}?" alt ="">
+      <div class="carousel__snapper">
+            {% with next_element=images|next:forloop.counter0 %}
+            {% with previous_element=images|previous:forloop.counter0 %}
+          <a href="#carousel__slide{{ previous_element.pk }}"
+           class="carousel__prev">Go to last slide</a>
+        <a href="#carousel__slide{{ next_element.pk}}"
+           class="carousel__next">Go to next slide</a>
+
+      </div>
+    </li>
+                 {% endwith %}
+                    {% endwith %}
+            {% endfor %}
+                    {% endwith %}
+
+                </ol>
+                <aside class="carousel__navigation">
+    <ol class="carousel__navigation-list">
+                {% for i in p.gallery.all %}
+            <li class="carousel__navigation-item">
+        <a href="#carousel__slide{{ i.pk }}"
+           class="carousel__navigation-button">Go to slide {{ i.pk }}</a>
+      </li>
+
+            {% endfor %}
+                </ol>
+                </aside>
+                 </section>
+                 </div>
+            {% endif %}
+        {% endfor %}
+
+     {% else %}
+            <p>Пока нет публикаций</p>
+    {% endif %}
+
+</div>
+</div>
+{% endblock %}
