@@ -1,21 +1,23 @@
 {% extends 'MainApp/base.html'%}
 {% block content %}
 {% load main_tags %}
-<div class="main">
+<div class="main" style="display: inline-block;">
     {% if request.user.is_authenticated %}
     <h1>{{ title }} {{ request.user.username }} | <a class="a-logout" href="{% url 'logout' %}" style="color: black">Выйти</a></h1>
         {% else %}
         <h1>{{ title }}</h1>
     {% endif %}
-    <div class="account-info" style=" margin-left: 35%; padding-bottom: 350px;">
+    <div ><img class="avatar_img" src="{% get_account_avatar request.user.pk %}?" alt =""></div>
+    <div><button class="add_post_button"><a href="{% url "add_post" %}">Добавить пост</a></button></div>
+    <div class="account-info" style=" margin-left: 150%; padding-bottom: 350px;">
         <h1>Мои посты</h1>
         {% if post %}
         {% for p in post.all %}
             <div class="post_div">
             <div class="username_post_div">
-                <h3>{{ user.username }}</h3>
+                <h3>{{ user.username }} - {{ p.title }}</h3>
             </div>
-            <h4>{{ p.title }}</h4>
+            <h5>{{ p.text }}</h5>
             {% if p.gallery %}
                  <section class="carousel" aria-label="Gallery">
                     <ol class="carousel__viewport">

@@ -18,16 +18,16 @@ class Account(models.Model):  # Профиль
 
 
 class PostGallery(models.Model):
-    img = models.ImageField(null=True, verbose_name='Картинка поста', upload_to='posts/%Y/%m/%d')
+    img = models.ImageField(null=True, blank=True, verbose_name='Картинка поста', upload_to='posts/%Y/%m/%d')
 
     def save(self, *args, **kwargs):
         super().save()
-        image = Image.open(self.img.path)
-
-        if image.height > 200 or image.width > 400:
-            output_size = (400, 400)
-            image.thumbnail(output_size)
-            image.save(self.img.path)
+        if self.img:
+            image = Image.open(self.img.path)
+            if image.height > 200 or image.width > 400:
+                output_size = (400, 400)
+                image.thumbnail(output_size)
+                image.save(self.img.path)
 
     class Meta:
         verbose_name = 'Картинка поста'
@@ -40,6 +40,8 @@ class Post(models.Model):  # Посты
     text = models.TextField(null=True, blank=True, verbose_name='Описание')
     gallery = models.ManyToManyField(PostGallery, verbose_name="Картинки поста")
     date_upload = models.DateField(auto_now_add=True, verbose_name="Дата загрузки на сайт")
+    lat = models.FloatField(blank=True, null=True, verbose_name="Широта")
+    lon = models.FloatField(blank=True, null=True, verbose_name="Долгота")
 
     def __str__(self):
         return self.title

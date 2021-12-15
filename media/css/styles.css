@@ -572,5 +572,19 @@ ol, li {
     border: 5px solid lightgray;
 
 }
+.avatar_img {
+    width:200px;
+    height: 200px;
+    border: 4px solid black;
+    border-radius: 50%;
+
+}
+.add_post_button {
+    width: 150px;
+    height: 40px;
+    margin-left: 35px;
+    background-color: lightgreen;
+}
+
 
 

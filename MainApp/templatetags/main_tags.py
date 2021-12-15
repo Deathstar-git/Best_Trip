@@ -33,6 +33,12 @@ def previous(some_list, current_index):
 @register.simple_tag()
 def get_rand_img_url(url):
     return url + "?" + str(random.randint(10, 10000))
+
+
+@register.simple_tag()
+def get_account_avatar(user_id):
+    acc = Account.objects.get(user_id=user_id)
+    return acc.avatar.url
 # @register.inclusion_tag('main/list_playlists.html')
 # def show_playlists(curr_id=1):
 #     pl = Playlist.objects.all()

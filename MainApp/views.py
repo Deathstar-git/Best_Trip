@@ -1,11 +1,12 @@
+from django.core.files.base import ContentFile
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 # from django.shortcuts import render
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from .utils import *
 from django.views.generic import ListView, CreateView
 from .models import *
 from django.contrib.auth.views import LoginView
-from .forms import RegisterUserForm, LoginUserForm
+from .forms import RegisterUserForm, LoginUserForm, AddPostForm
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.shortcuts import redirect
@@ -85,21 +86,27 @@ class ProfilePage(DataMixin, ListView):
             return redirect('main')
 
 
-
-
 class AddPostPage(DataMixin, CreateView):
-    form_class = RegisterUserForm
-    template_name = 'MainApp/register.html'
+    form_class = AddPostForm
+    template_name = 'MainApp/add_post.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title='Регистрация')
+        c_def = self.get_user_context(title='Добавить новый пост')
         return dict(list(context.items()) + list(c_def.items()))
 
     def form_valid(self, form):
-        u = form.save(commit=False)
-        u.save()
-        Account.objects.create(user=u)
+        p = form.save(commit=False)
+        p.author = Account.objects.get(user_id=self.request.user.pk)
+        p.save()
+        for f in self.request.FILES.getlist('gallery'):
+            data = f.read()  # Если файл целиком умещается в памяти
+            img = PostGallery.objects.create()
+            img.img.save(f.name, ContentFile(data))
+            img.save()
+            p.gallery.add(img)
+            p.save()
+
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
