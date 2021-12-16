@@ -1,6 +1,7 @@
 from django.core.files.base import ContentFile
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render
 from .utils import *
 from django.views.generic import ListView, CreateView
 from .models import *
@@ -8,7 +9,7 @@ from django.contrib.auth.views import LoginView
 from .forms import RegisterUserForm, LoginUserForm, AddPostForm
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from decimal import Decimal
 
 
@@ -66,8 +67,8 @@ class RegisterUser(DataMixin, CreateView):
     def get_success_url(self):
         return reverse('login')
 
-
 def post_form(request, parameter):
+    current_user = User.objects.get(pk = request.user.pk)
     if parameter == 'add':
         current_post = Post()
         current_post.title = ''
@@ -75,10 +76,12 @@ def post_form(request, parameter):
         current_post.place_name = ''
         current_post.lng = 92.8932476
         current_post.lat = 57.01528339999999
-        current_user = User.objects.get(pk = request.user.pk)
-        account = current_user.account
+        current_post.account = current_user.account
     else:
         current_post = Post.objects.get(id = parameter)
+        # image_list = []
+        # for g in PostGallery.objects.filter(post = current_post):
+        #     image_list.append(g.img.url)
 
     if request.method == "POST":
         current_post.title = request.POST.get("title")
@@ -86,11 +89,19 @@ def post_form(request, parameter):
         current_post.place_name = request.POST.get("place_name")
         current_post.lng = Decimal(str(request.POST.get("lng")).replace(',','.'))
         current_post.lat = Decimal(str(request.POST.get("lat")).replace(',','.'))
+        images = request.FILES.getlist("gallery")
+        if images:
+            for f in images:
+                data = f.read()  # Если файл целиком умещается в памяти
+                img = PostGallery.objects.create()
+                img.img.save(f.name, ContentFile(data))
+                img.save()
+                current_post.gallery.add(img)
+                current_post.save()
         current_post.save()
-        return reverse('my')
+        return redirect('my')
     else:
-        return render(request, "MainApp/post_form.html", {'post':current_post, 'title': 'Ваш пост'})
-
+        return render(request, "MainApp/post_form.html", {'post':current_post, 'image_list': image_list, 'title': 'Ваш пост'})
 
 class ProfilePage(DataMixin, ListView):
     model = Post
@@ -103,6 +114,7 @@ class ProfilePage(DataMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
+        print(self.request.user.pk)
         try:
             acc = Account.objects.get(user_id=self.request.user.pk)
             return Post.objects.filter(author_id=acc.pk)
