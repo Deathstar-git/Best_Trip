@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link type="text/css" href="{% static 'css/post_form_styles.css' %}" rel="stylesheet"/>
+</head>
+<body>
+    <div class="place_form_wrap">
+        <form id="place_form" method="POST">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="Заголовок поста" autocomplete="off" value="{{post.title}}">
+            <textarea name="text" cols="30" rows="10" placeholder="Ваши впечатления от поездки" value="{{post.text}}"></textarea>
+            <div id="map_input_wrapper">
+                <input id="map_input" type="text" name="place_name" placeholder="Введите название города" value="{{post.place_name}}">
+            </div>
+            {%include 'MainApp/map.html'%}
+            <button class="submitButton" type="submit">Сохранить</button>
+        </form>
+    </div>
+</body>
+</html>

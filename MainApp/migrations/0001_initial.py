@@ -20,6 +20,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=255, verbose_name='Заголовок')),
                 ('text', models.TextField(blank=True, null=True, verbose_name='Описание')),
+                ('lng', models.DecimalField(blank=True, decimal_places=25, max_digits=30, null=True, verbose_name='Широта')),
+                ('lat', models.DecimalField(blank=True, decimal_places=25, max_digits=30, null=True, verbose_name='Долгота')),
                 ('date_upload', models.DateField(auto_now_add=True, verbose_name='Дата загрузки на сайт')),
             ],
             options={
@@ -40,7 +42,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('avatar', models.ImageField(blank=True, null=True, upload_to='profiles/%Y/%m/%d', verbose_name='Картинка пользователя')),
-                ('posts', models.ManyToManyField(to='MainApp.Post', verbose_name='Моя музыка')),
+                ('posts', models.ManyToManyField(to='MainApp.Post', verbose_name='Посты')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={

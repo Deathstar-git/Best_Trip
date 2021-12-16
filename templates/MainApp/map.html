@@ -1,0 +1,10 @@
+{% load static %}
+<div class="map_wrap">
+    <div class="place_lat_long">
+        <input type="text" id="place_lat" name = "lat" value = "{{post.lat}}">
+        <input type="text" id="place_lng" name = "lng" value = "{{post.lng}}">
+    </div>
+    <div id="map"></div>
+</div>
+<script src="{% static 'js/map.js' %}"></script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmHhpmG3accjcFuK1nGr6QiOFCjgXfUdM&libraries=places&callback=initMap"></script>
