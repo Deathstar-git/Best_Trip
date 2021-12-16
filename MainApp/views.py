@@ -1,7 +1,7 @@
 from django.core.files.base import ContentFile
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 # from django.shortcuts import render
-from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.core.exceptions import ObjectDoesNotExist
 from .utils import *
 from django.views.generic import ListView, CreateView
 from .models import *
