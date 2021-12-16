@@ -8,10 +8,11 @@
 </head>
 <body>
     <div class="place_form_wrap">
-        <form id="place_form" method="POST">
+        <form id="place_form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="text" name="title" placeholder="Заголовок поста" autocomplete="off" value="{{post.title}}">
-            <textarea name="text" cols="30" rows="10" placeholder="Ваши впечатления от поездки" value="{{post.text}}"></textarea>
+            <textarea name="text" cols="30" rows="10" placeholder="Ваши впечатления от поездки">{{post.text}}</textarea>
+            <input name="gallery" type="file" accept="image/*" id="image-upload" multiple value="{{image_list}}">
             <div id="map_input_wrapper">
                 <input id="map_input" type="text" name="place_name" placeholder="Введите название города" value="{{post.place_name}}">
             </div>

@@ -68,5 +68,6 @@ function initMap() {
     setTimeout(() => {
         map = new google.maps.Map(document.getElementById("map"), options)
         set_default_coordinate_inputs_values(location)
+        map.panTo(location)
     }, 100)
 }
