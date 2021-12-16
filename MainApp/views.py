@@ -68,6 +68,7 @@ class RegisterUser(DataMixin, CreateView):
         return reverse('login')
 
 def post_form(request, parameter):
+    current_user = User.objects.get(pk = request.user.pk)
     if parameter == 'add':
         current_post = Post()
         current_post.title = ''
@@ -75,10 +76,12 @@ def post_form(request, parameter):
         current_post.place_name = ''
         current_post.lng = 92.8932476
         current_post.lat = 57.01528339999999
-        current_user = User.objects.get(pk = request.user.pk)
-        account = current_user.account
+        current_post.account = current_user.account
     else:
         current_post = Post.objects.get(id = parameter)
+        # image_list = []
+        # for g in PostGallery.objects.filter(post = current_post):
+        #     image_list.append(g.img.url)
 
     if request.method == "POST":
         current_post.title = request.POST.get("title")
@@ -86,10 +89,19 @@ def post_form(request, parameter):
         current_post.place_name = request.POST.get("place_name")
         current_post.lng = Decimal(str(request.POST.get("lng")).replace(',','.'))
         current_post.lat = Decimal(str(request.POST.get("lat")).replace(',','.'))
+        images = request.FILES.getlist("gallery")
+        if images:
+            for f in images:
+                data = f.read()  # Если файл целиком умещается в памяти
+                img = PostGallery.objects.create()
+                img.img.save(f.name, ContentFile(data))
+                img.save()
+                current_post.gallery.add(img)
+                current_post.save()
         current_post.save()
-        ##return redirect('')
+        return redirect('my')
     else:
-        return render(request, "MainApp/post_form.html", {'post':current_post, 'title': 'Ваш пост'})
+        return render(request, "MainApp/post_form.html", {'post':current_post, 'image_list': image_list, 'title': 'Ваш пост'})
 
 class ProfilePage(DataMixin, ListView):
     model = Post
