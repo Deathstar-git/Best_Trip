@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 from django.conf import settings
 
@@ -7,6 +8,9 @@ from django.conf import settings
 class Post(models.Model):  # Посты
     title = models.CharField(max_length=255, null=False, verbose_name='Заголовок')
     text = models.TextField(null=True, blank=True, verbose_name='Описание')
+    place_name = models.TextField(null=True, blank=True, verbose_name='Название места')
+    lng = models.DecimalField(max_digits=30, decimal_places=25, null=True, blank=True, verbose_name='Широта')
+    lat = models.DecimalField(max_digits=30, decimal_places=25, null=True, blank=True, verbose_name='Долгота')
 
     date_upload = models.DateField(auto_now_add=True, verbose_name="Дата загрузки на сайт")
 
@@ -28,7 +32,7 @@ class PostGallery(models.Model):
 
 class Account(models.Model):  # Профиль
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    posts = models.ManyToManyField(Post, verbose_name='Моя музыка')
+    posts = models.ManyToManyField(Post, verbose_name='Посты')
     avatar = models.ImageField(null=True, blank=True,
                                verbose_name='Картинка пользователя', upload_to='profiles/%Y/%m/%d')
 

@@ -1,10 +1,11 @@
 from django.http import HttpResponseNotFound, HttpResponseRedirect
-# from django.shortcuts import render
+from django.shortcuts import render
 from .utils import *
 from django.views.generic import ListView, CreateView
 from .models import *
 from django.contrib.auth.views import LoginView
 from .forms import RegisterUserForm, LoginUserForm
+from decimal import Decimal
 
 
 class MainPage(DataMixin, ListView):
@@ -61,6 +62,29 @@ class RegisterUser(DataMixin, CreateView):
     def get_success_url(self):
         return reverse('login')
 
+def post_form(request, parameter):
+    if parameter == 'add':
+        current_post = Post()
+        current_post.title = ''
+        current_post.text = ''
+        current_post.place_name = ''
+        current_post.lng = 92.8932476
+        current_post.lat = 57.01528339999999
+        current_user = User.objects.get(pk = request.user.pk)
+        account = current_user.account
+    else:
+        current_post = Post.objects.get(id = parameter)
+
+    if request.method == "POST":
+        current_post.title = request.POST.get("title")
+        current_post.text = request.POST.get("text")
+        current_post.place_name = request.POST.get("place_name")
+        current_post.lng = Decimal(str(request.POST.get("lng")).replace(',','.'))
+        current_post.lat = Decimal(str(request.POST.get("lat")).replace(',','.'))
+        current_post.save()
+        ##return redirect('')
+    else:
+        return render(request, "MainApp/post_form.html", {'post':current_post, 'title': 'Ваш пост'})
 
 def page_not_found(request, exception):
     return HttpResponseNotFound('<h1>Всё фигня,давай по новой</h1>', exception)
