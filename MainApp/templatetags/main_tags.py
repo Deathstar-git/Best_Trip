@@ -1,6 +1,8 @@
 import random
 
 from django import template
+from django.core.exceptions import ObjectDoesNotExist
+
 from MainApp.models import *
 
 register = template.Library()
@@ -37,8 +39,11 @@ def get_rand_img_url(url):
 
 @register.simple_tag()
 def get_account_avatar(user_id):
-    acc = Account.objects.get(user_id=user_id)
-    return acc.avatar.url
+    try:
+        acc = Account.objects.get(user_id=user_id)
+        return acc.avatar.url
+    except:
+        return ''
 # @register.inclusion_tag('main/list_playlists.html')
 # def show_playlists(curr_id=1):
 #     pl = Playlist.objects.all()

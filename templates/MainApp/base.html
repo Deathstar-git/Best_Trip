@@ -15,10 +15,9 @@
 </head>
 <body>
 {% block mainmenu %}
-
 <header class="header-outer">
 <div class="header-inner">
-    <div class="logo_div"><a class="a-main" href="{% url 'main' %} "><div class="logo"></div></a></div>
+    <div class="logo_div"><a class="a-main" href="{% url 'main' %}"><div class="logo"></div></a></div>
     <div class="menu-div">{{ title }}</div>
     {% for m in menu %}
         <div class="menu-div"><a class="a-{{ m.url_name }}" href="{% url m.url_name %}">{{ m.title }}</a></div>

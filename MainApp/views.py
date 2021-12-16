@@ -1,7 +1,6 @@
 from django.core.files.base import ContentFile
 from django.http import HttpResponseNotFound, HttpResponseRedirect
-# from django.shortcuts import render
-from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.core.exceptions import ObjectDoesNotExist
 from .utils import *
 from django.views.generic import ListView, CreateView
 from .models import *
@@ -67,6 +66,7 @@ class RegisterUser(DataMixin, CreateView):
     def get_success_url(self):
         return reverse('login')
 
+
 def post_form(request, parameter):
     if parameter == 'add':
         current_post = Post()
@@ -87,9 +87,10 @@ def post_form(request, parameter):
         current_post.lng = Decimal(str(request.POST.get("lng")).replace(',','.'))
         current_post.lat = Decimal(str(request.POST.get("lat")).replace(',','.'))
         current_post.save()
-        ##return redirect('')
+        return reverse('my')
     else:
         return render(request, "MainApp/post_form.html", {'post':current_post, 'title': 'Ваш пост'})
+
 
 class ProfilePage(DataMixin, ListView):
     model = Post
@@ -102,7 +103,6 @@ class ProfilePage(DataMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
-        print(self.request.user.pk)
         try:
             acc = Account.objects.get(user_id=self.request.user.pk)
             return Post.objects.filter(author_id=acc.pk)

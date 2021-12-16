@@ -34,14 +34,12 @@
            class="carousel__prev">Go to last slide</a>
         <a href="#carousel__slide{{ next_element.pk}}"
            class="carousel__next">Go to next slide</a>
-
       </div>
     </li>
                  {% endwith %}
                     {% endwith %}
             {% endfor %}
                     {% endwith %}
-
                 </ol>
                 <aside class="carousel__navigation">
     <ol class="carousel__navigation-list">
@@ -50,7 +48,6 @@
         <a href="#carousel__slide{{ i.pk }}"
            class="carousel__navigation-button">Go to slide {{ i.pk }}</a>
       </li>
-
             {% endfor %}
                 </ol>
                 </aside>

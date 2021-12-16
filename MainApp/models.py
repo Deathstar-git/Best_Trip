@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 from PIL import Image
 from django.contrib.auth.models import User
-
 from django.conf import settings
 
 
@@ -44,7 +43,6 @@ class Post(models.Model):  # Посты
     place_name = models.TextField(null=True, blank=True, verbose_name='Название места')
     lng = models.DecimalField(max_digits=30, decimal_places=25, null=True, blank=True, verbose_name='Широта')
     lat = models.DecimalField(max_digits=30, decimal_places=25, null=True, blank=True, verbose_name='Долгота')
-
     date_upload = models.DateField(auto_now_add=True, verbose_name="Дата загрузки на сайт")
 
     def __str__(self):
