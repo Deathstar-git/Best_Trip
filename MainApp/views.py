@@ -67,8 +67,10 @@ class RegisterUser(DataMixin, CreateView):
     def get_success_url(self):
         return reverse('login')
 
+
 def post_form(request, parameter):
-    current_user = User.objects.get(pk = request.user.pk)
+    current_user = User.objects.get(pk=request.user.pk)
+    image_list = []
     if parameter == 'add':
         current_post = Post()
         current_post.title = ''
@@ -78,17 +80,16 @@ def post_form(request, parameter):
         current_post.lat = 57.01528339999999
         current_post.account = current_user.account
     else:
-        current_post = Post.objects.get(id = parameter)
-        # image_list = []
-        # for g in PostGallery.objects.filter(post = current_post):
-        #     image_list.append(g.img.url)
+        current_post = Post.objects.get(id=parameter)
+        for g in PostGallery.objects.filter(post=current_post):
+            image_list.append(g.img.url)
 
     if request.method == "POST":
         current_post.title = request.POST.get("title")
         current_post.text = request.POST.get("text")
         current_post.place_name = request.POST.get("place_name")
-        current_post.lng = Decimal(str(request.POST.get("lng")).replace(',','.'))
-        current_post.lat = Decimal(str(request.POST.get("lat")).replace(',','.'))
+        current_post.lng = Decimal(str(request.POST.get("lng")).replace(',', '.'))
+        current_post.lat = Decimal(str(request.POST.get("lat")).replace(',', '.'))
         images = request.FILES.getlist("gallery")
         if images:
             for f in images:
@@ -101,7 +102,9 @@ def post_form(request, parameter):
         current_post.save()
         return redirect('my')
     else:
-        return render(request, "MainApp/post_form.html", {'post':current_post, 'image_list': image_list, 'title': 'Ваш пост'})
+        return render(request, "MainApp/post_form.html", {'post': current_post,
+                                                          'image_list': image_list, 'title': 'Ваш пост'})
+
 
 class ProfilePage(DataMixin, ListView):
     model = Post
