@@ -3,7 +3,9 @@ from django.urls import reverse
 from PIL import Image
 from django.contrib.auth.models import User
 from django.conf import settings
-
+from django.dispatch import receiver
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models.signals import post_save
 
 class Account(models.Model):  # Профиль
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -17,6 +19,12 @@ class Account(models.Model):  # Профиль
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
 
+    @receiver(post_save, sender=User)
+    def create_user_account(sender, instance, created, **kwargs):
+        try:
+            instance.account.save()
+        except ObjectDoesNotExist:
+            Account.objects.create(user=instance)
 
 class PostGallery(models.Model):
     img = models.ImageField(null=True, blank=True, verbose_name='Картинка поста', upload_to='posts/%Y/%m/%d')
