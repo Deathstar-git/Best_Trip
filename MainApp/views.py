@@ -73,11 +73,14 @@ def post_form(request, parameter):
         current_post.place_name = ''
         current_post.lng = 92.8932476
         current_post.lat = 57.01528339999999
-        current_post.account = current_user.account
+        current_post.author = current_user.account
     else:
         current_post = Post.objects.get(id=parameter)
-        for g in PostGallery.objects.filter(post=current_post):
-            image_list.append(g.img.url)
+        if current_post.author == current_user.account:
+            for g in PostGallery.objects.filter(post=current_post):
+                image_list.append(g.img.url)
+        else:
+            return redirect('my')
 
     if request.method == "POST":
         current_post.author = Account.objects.get(user_id=request.user.pk)
