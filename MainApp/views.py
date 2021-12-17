@@ -18,18 +18,13 @@ class MainPage(DataMixin, ListView):
     template_name = 'MainApp/main_page.html'
     context_object_name = 'posts'
 
-    # def render_to_response(self, context, **response_kwargs):
-    #     response = super().render_to_response(context, **response_kwargs)
-    #     response.set_cookie('pl_id', 1)
-    #     return response
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Главная страница')
         return dict(list(context.items()) + list(c_def.items()))
 
-    # def get_queryset(self):
-    #     return Song.objects.filter(playlist__pk=1)
+    def get_queryset(self):
+        return Post.objects.all()
 
 
 class LoginUser(DataMixin,  LoginView):
@@ -85,12 +80,14 @@ def post_form(request, parameter):
             image_list.append(g.img.url)
 
     if request.method == "POST":
+        current_post.author = Account.objects.get(user_id=request.user.pk)
         current_post.title = request.POST.get("title")
         current_post.text = request.POST.get("text")
         current_post.place_name = request.POST.get("place_name")
         current_post.lng = Decimal(str(request.POST.get("lng")).replace(',', '.'))
         current_post.lat = Decimal(str(request.POST.get("lat")).replace(',', '.'))
         images = request.FILES.getlist("gallery")
+        current_post.save()
         if images:
             for f in images:
                 data = f.read()  # Если файл целиком умещается в памяти
@@ -99,7 +96,6 @@ def post_form(request, parameter):
                 img.save()
                 current_post.gallery.add(img)
                 current_post.save()
-        current_post.save()
         return redirect('my')
     else:
         return render(request, "MainApp/post_form.html", {'post': current_post,

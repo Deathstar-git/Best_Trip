@@ -2,4 +2,19 @@
 {% load main_tags %}
 {% block content %}
 
+<h1 style="margin-left: 30%; width: 500px;">Тут дохуя интересно вы этого просто не видите</h1>
+    <div class="ant-carousel" id="first">
+  <div class="ant-carousel-hider">
+    <ul class="ant-carousel-list">
+        {% for p in posts %}
+             {% for i in p.gallery.all %}
+      <li class="ant-carousel-element"><img src="{% get_rand_img_url i.img.url %}" alt="{{ i.pk }}"> <p>{{ p.text }}</p> </li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+  </div>
+  <div class="ant-carousel-arrow-left"></div><div class="ant-carousel-arrow-right"></div>
+  <div class="ant-carousel-dots"></div>
+</div>
+<script>new Ant("first")</script>
 {% endblock %}
