@@ -43,7 +43,7 @@ def get_account_avatar(user_id):
         acc = Account.objects.get(user_id=user_id)
         return acc.avatar.url
     except:
-        return ''
+        return 'https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'
 # @register.inclusion_tag('main/list_playlists.html')
 # def show_playlists(curr_id=1):
 #     pl = Playlist.objects.all()
