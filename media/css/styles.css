@@ -1,8 +1,11 @@
 *:focus
 {
     outline: none;
-}
 
+}
+::-webkit-scrollbar {
+  width: 0;
+}
 :root {
   --header-outer-height: 80px;
   --header-inner-height: 60px;
@@ -28,6 +31,28 @@ html, body {
 	width: 100%;
 	color: #444444;
 }
+body {
+    /* Местоположение фоновой картинки */   background-image: url('../images/background.jpg');
+/* Фоновое изображение выровнено по центру в горизонтальной и вертикальной плоскостях */   background-position: center center;
+/* Фон не повторяется */   background-repeat: no-repeat;
+/* Фон зафиксирован в области просмотра и потому не двигается, когда высота контента превышает высоту изображения */   background-attachment: fixed;
+/* Это свойство заставляет фон менять масштаб при изменении размеров содержащего его контейнера*/   background-size: cover;
+/* Цвет фона, который будет отображаться при загрузке фоновой картинки*/   background-color: #464646;
+}
+/*#background {*/
+/*   position: fixed;*/
+/*    top:0;*/
+/*    left:0;*/
+/*    bottom:0;*/
+/*    right: 0;*/
+/*    background-image: url('../images/background.jpg');*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: cover;*/
+/*    background-position: 50%;*/
+/*    -webkit-filter: blur(3px);*/
+/*    z-index: -1;*/
+/*}*/
+
 
 ul {
 	list-style: none;
@@ -68,7 +93,7 @@ ul.header_ul{
 	top:calc(
     var(--header-height-difference) * -1);
     width: 100%;
-    background: lightgray;
+    background: white;
     box-shadow: 0 0 10px rgba(229, 229, 229,0.5);
 	z-index:999;
 }
@@ -185,10 +210,10 @@ a:link {
 
 .a_menu {
 	font-size: 22px;
-	color: inherit;
+	color: black;
 }
 a:-webkit-any-link {
-    color: white;
+    color: black;
 }
 a:hover {
 	color: #afb7c1;
@@ -291,7 +316,7 @@ div.image-container {
     color: white;
 }
 .a-register {
-    color: white;
+    color: black;
     font-size: 24px;
     font-weight: bold;
  	-webkit-text-stroke: 1px gray;
@@ -589,7 +614,7 @@ ol, li {
     background-color: lightgreen;
 }
 .input_form_post {
-    height: 400px;
+    height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -10,6 +10,5 @@
 {% endif %}
 <div><img class="avatar_img" src="{% get_account_avatar request.user.pk %}?" alt=""></div>
 <div><button class="add_post_button"><a href="{% url 'post_form' 'add' %}">Добавить пост</a></button></div>
-<h1>Мои посты</h1>
 {%include 'MainApp/posts.html'%}
 {% endblock %}
