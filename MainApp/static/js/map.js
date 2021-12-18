@@ -37,7 +37,6 @@ function initMap() {
     let options = {
         center: location,
         zoom: 8,
-        draggable: false,
     }
 
     if (navigator.geolocation) {

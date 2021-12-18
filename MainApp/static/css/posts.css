@@ -62,11 +62,6 @@
     padding-bottom: 20px;
 }
 
-.place_lat_long{
-    position: absolute;
-    visibility: hidden;
-} 
-
 .post_images_wrapper{
     padding-bottom: 30px;
 }

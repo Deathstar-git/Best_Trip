@@ -9,6 +9,11 @@ div.gm-bundled-control div.gmnoprint, .gm-svpc{
     border-radius: 10px;
 }
 
+.place_lat_long{
+    position: absolute;
+    visibility: hidden;
+}
+
 .map_background{
     position: fixed;
     top: 50%;

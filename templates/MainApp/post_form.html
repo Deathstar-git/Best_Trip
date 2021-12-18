@@ -4,17 +4,18 @@
      <link type="text/css" href="{% static 'css/post_form_styles.css' %}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    <div class="place_form_wrap">
-        <form id="place_form" method="POST" enctype="multipart/form-data">
+    <div class="post_form_wrap">
+        <form id="post_form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="input_form_post">
-            <input class="form-input" type="text" name="title" placeholder="Заголовок поста" autocomplete="off" value="{{post.title}}">
-            <textarea class="form-input" name="text" cols="30" rows="10" placeholder="Ваши впечатления от поездки">{{post.text}}</textarea>
-            <input  name="gallery" type="file" accept="image/*" id="image-upload" multiple value="{{image_list}}">
-            <div id="map_input_wrapper">
-                <input class="form-input" id="map_input" type="text" name="place_name" placeholder="Введите название города" value="{{post.place_name}}">
-            </div>
+            <div class="post_form_inputs">
+                <input class="form_input" type="text" name="title" placeholder="Введите заголовок поста" autocomplete="off" value="{{post.title}}" required>
+                <textarea class="post_form_textarea form_input" name="text" cols="30" rows="10" placeholder="Ваши впечатления от поездки">{{post.text}}</textarea>
+                <div class="post_form_img_upload_wrapper">
+                    <label class="post_form_img_upload_label" for="image-upload">Добавьте фотографии</label>
+                    <input  name="gallery" type="file" accept="image/*" id="image-upload" multiple value="{{image_list}}">
                 </div>
+                <input class="form_input" id="map_input" type="text" name="place_name" placeholder="Введите название города" value="{{post.place_name}}" required>          
+            </div>
             {%include 'MainApp/map.html'%}
             <button class="save_post_button" type="submit">Сохранить</button>
         </form>
