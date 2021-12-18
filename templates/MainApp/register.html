@@ -1,8 +1,8 @@
 {% extends 'MainApp/base.html'%}
 {% block content %}
 <div class="main">
-    <h1>{{ title }}</h1>
 <div class="form-container">
+ <h1>{{ title }}</h1>
     <form method="post" action="{% url 'register' %}">
     {% csrf_token %}
 

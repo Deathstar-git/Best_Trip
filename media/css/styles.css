@@ -1,14 +1,19 @@
 *:focus
 {
     outline: none;
-}
 
+}
+::-webkit-scrollbar {
+  width: 0;
+}
 :root {
-  --header-outer-height: 80px;
-  --header-inner-height: 60px;
+  --header-outer-height: 60px;
+  --header-inner-height: 40px;
   --header-height-difference: calc(
     var(--header-outer-height) - var(--header-inner-height)
   );
+    --logo-height:calc(var(--header-height-difference) + 40px);
+
 }
 svg {
 	z-index: 2;
@@ -26,8 +31,30 @@ html, body {
 	padding: 0;
 	height: 100%;
 	width: 100%;
-	color: #444444;
+	color: black;
 }
+body {
+    /* Местоположение фоновой картинки */   background-image: url('../images/background.jpg');
+/* Фоновое изображение выровнено по центру в горизонтальной и вертикальной плоскостях */   background-position: center center;
+/* Фон не повторяется */   background-repeat: no-repeat;
+/* Фон зафиксирован в области просмотра и потому не двигается, когда высота контента превышает высоту изображения */   background-attachment: fixed;
+/* Это свойство заставляет фон менять масштаб при изменении размеров содержащего его контейнера*/   background-size: cover;
+/* Цвет фона, который будет отображаться при загрузке фоновой картинки*/   background-color: #464646;
+}
+/*#background {*/
+/*   position: fixed;*/
+/*    top:0;*/
+/*    left:0;*/
+/*    bottom:0;*/
+/*    right: 0;*/
+/*    background-image: url('../images/background.jpg');*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: cover;*/
+/*    background-position: 50%;*/
+/*    -webkit-filter: blur(3px);*/
+/*    z-index: -1;*/
+/*}*/
+
 
 ul {
 	list-style: none;
@@ -54,22 +81,24 @@ ul.header_ul{
 }
 
 .logo {
-    background: url('../images/logo.png') no-repeat;
+    margin-right: -175px;
+    background: url('../images/logo_v2.png') no-repeat;
 	font-size: 20px;
-	width: 50px;
-	height: 50px;
+	width: 175px;
+	height:var(--logo-height);
+
 }
 .header-outer {
 	display: flex;
     align-items: center;
     justify-content: space-around;
-    position: absolute;
+    position: sticky;
 	height: var(--header-outer-height);
 	top:calc(
     var(--header-height-difference) * -1);
     width: 100%;
-    background: lightgray;
-    box-shadow: 0 0 10px rgba(229, 229, 229,0.5);
+    background: white;
+    box-shadow: 0 0 20px rgba(229, 229, 229,1);
 	z-index:999;
 }
 .header-inner {
@@ -185,10 +214,10 @@ a:link {
 
 .a_menu {
 	font-size: 22px;
-	color: inherit;
+	color: black;
 }
 a:-webkit-any-link {
-    color: white;
+    color: black;
 }
 a:hover {
 	color: #afb7c1;
@@ -291,7 +320,7 @@ div.image-container {
     color: white;
 }
 .a-register {
-    color: white;
+    color: black;
     font-size: 24px;
     font-weight: bold;
  	-webkit-text-stroke: 1px gray;
@@ -310,11 +339,11 @@ div.image-container {
 
 }
 .form-container, .account-info {
-	background-color: white;
-	border-radius: 20px;
-	display: inline-block;
-	margin-bottom:20px;
-    padding: 10px;
+background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 60px;
+    position: center;
+    margin: 50px 50px 0 50px;
+    padding: 30px;
 }
 .cat-body {
 	display: inline-block;
@@ -589,7 +618,7 @@ ol, li {
     background-color: lightgreen;
 }
 .input_form_post {
-    height: 400px;
+    height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
