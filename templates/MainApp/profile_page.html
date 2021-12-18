@@ -1,15 +1,29 @@
 {% extends 'MainApp/base.html'%}
 {% block content %}
 {% load main_tags %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 
-{% if request.user.is_authenticated %}
-<h1>{{ title }} {{ request.user.username }} | <a class="a-logout" href="{% url 'logout' %}"
-        style="color: black">Выйти</a></h1>
-{% else %}
-    <h1>{{ title }}</h1>
-{% endif %}
-<div><img class="avatar_img" src="{% get_account_avatar request.user.pk %}?" alt=""></div>
-<div><button class="add_post_button"><a href="{% url 'post_form' 'add' %}">Добавить пост</a></button></div>
-<h1>Мои посты</h1>
+<div class="profile_wrap">
+    {% if request.user.is_authenticated %}
+    <div class="profile_user_info">
+        <div class="profile_user_image_wrap">
+            {% if get_account_avatar %}
+                <img class="avatar_img" src="{% get_account_avatar request.user.pk %}?">
+            {% else %}
+                <img class="post_user_image" src='https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'>
+            {% endif %}
+        </div>
+        <div class="user_name_and_buttons">
+            <div class="profile_user_name">{{ request.user.username }}</div>
+            <a class="profile_link" href="{% url 'post_form' 'add' %}"><div class="profile_service_button">Добавить пост</div></a>
+            <a class="profile_link" href="{% url 'logout' %}"><div class="profile_service_button">Выйти</div></a>
+        </div>
+    </div>
+    {% else %}
+        <h1>{{ title }}</h1>
+    {% endif %}
+</div>
+<div class="posts_header">Мои посты</div>
 {%include 'MainApp/posts.html'%}
 {% endblock %}
