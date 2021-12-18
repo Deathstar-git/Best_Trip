@@ -1,0 +1,9 @@
+div#map a,
+div#map button,
+div.gm-bundled-control div.gmnoprint, .gm-svpc{
+    display: none !important;
+}
+
+#map{
+    height: 400px;
+}
