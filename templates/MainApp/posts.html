@@ -17,6 +17,12 @@
                 <div class="post_user_name">{{ p.author.user.username }}</div>
             </div>
             <div class="post_content">
+                <div class="post_place_name">
+                    <span class="material-icons-round">
+                        place   
+                    </span>
+                    <div>{{p.place_name}}</div>
+                </div>
                 <div class="post_title">{{p.title}}</div>
                 <div class="post_text">{{p.text}}</div>
                 <div class="post_images_wrapper">
@@ -51,9 +57,6 @@
                     <input type="text" id="post_lng" name = "lng" value = "{{p.lng}}">
                 </div>
                 <div class="post_add_map_button">
-                    <span class="material-icons-round">
-                        expand_more
-                    </span>
                     <p>Нажмите, чтобы посмотреть местоположение</p>                   
                 </div>
             </div>

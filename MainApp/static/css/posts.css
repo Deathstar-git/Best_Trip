@@ -9,6 +9,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    padding-top: 80px;
 }
 
 .post_wrap{
@@ -25,6 +26,17 @@
     grid-template-columns: auto 1fr;
     align-items: center;
     padding: 20px 0px;
+}
+
+.post_place_name{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    padding-bottom: 15px;
+    font-size: 16px;
+}
+
+.post_place_name .material-icons-round{
+    font-size: 16px;
 }
 
 .post_user_image_wrap{
@@ -53,7 +65,7 @@
 .place_lat_long{
     position: absolute;
     visibility: hidden;
-}
+} 
 
 .post_images_wrapper{
     padding-bottom: 30px;
@@ -64,11 +76,8 @@
     text-align: center;
     cursor: pointer;
     line-height: 0;
-    padding: 10px 0px;
+    padding: 20px 0px;
     font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 5px;
 }
 
@@ -92,7 +101,32 @@
     line-height: 0;
 }
 
-#map{
-    position: absolute;
+.map_wrap{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
     visibility: hidden;
+    overflow: hidden;
+    z-index: -1;
+    width: 0px;
+    height: 0px;
+}
+
+.map_wrap_visible{
+    visibility: visible;
+    height: 85%;
+    width: 85%;
+    z-index: 9999;
+    opacity: 1;
+}
+
+.map_background_visible{
+    visibility: visible;
+    height: 100%;
+    width: 100%;
+    z-index: 9998;
+    opacity: 1;
 }
