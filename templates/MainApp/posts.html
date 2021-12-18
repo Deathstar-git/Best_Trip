@@ -1,0 +1,33 @@
+{% load static %}
+{%include 'MainApp/map.html'%}
+<div class="posts_wrap">
+    {% if posts %}
+        {% for post in posts %}
+            <div class="post_wrap">
+                <div class="post_user_info">
+                    <div class="post_user_image_wrap">
+                        {% if post.author.avatar %}
+                            <image class="post_user_image" src = "{{ post.author.avatar.url }}"></image>
+                        {% else %}
+                            <img class="post_user_image" src='https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'>
+                        {% endif %}
+                    </div>
+                    <div class="post_user_name">{{ post.author.user.username }}</div>
+                </div>
+                <div class="post_content">
+                    <div class="post_title">{{post.title}}</div>
+                    <div class="post_text">{{post.text}}</div>
+                    <div class="post_images_wrapper">
+                        {% for i in post.images %}
+                            <image src = "{{ i.img.url }}"></image>
+                        {% endfor %}
+                    </div>
+                    <div class="place_lat_long">
+                        <input type="text" id="post_lat" name = "lat" value = "{{post.lat}}">
+                        <input type="text" id="post_lng" name = "lng" value = "{{post.lng}}">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>

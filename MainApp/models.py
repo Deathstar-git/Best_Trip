@@ -62,3 +62,7 @@ class Post(models.Model):  # Посты
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
+
+    @property
+    def images(self):
+        return PostGallery.objects.filter(post = self)
