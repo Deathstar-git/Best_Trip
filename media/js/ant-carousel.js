@@ -25,7 +25,7 @@ function Ant(crslId) {
 Ant.defaults = {
 
 	// Default options for the carousel
-	elemVisible: 3, // Кол-во отображаемых элементов в карусели
+	elemVisible: 1, // Кол-во отображаемых элементов в карусели
 	loop: true,     // Бесконечное зацикливание карусели
 	auto: false,     // Автоматическая прокрутка
 	interval: 5000, // Интервал между прокруткой элементов (мс)
