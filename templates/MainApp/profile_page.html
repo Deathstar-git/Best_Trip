@@ -1,7 +1,7 @@
 {% extends 'MainApp/base.html'%}
 {% block content %}
 {% load main_tags %}
-
+<div class="account-info">
 {% if request.user.is_authenticated %}
 <h1>{{ title }} {{ request.user.username }} | <a class="a-logout" href="{% url 'logout' %}"
         style="color: black">Выйти</a></h1>
@@ -10,5 +10,6 @@
 {% endif %}
 <div><img class="avatar_img" src="{% get_account_avatar request.user.pk %}?" alt=""></div>
 <div><button class="add_post_button"><a href="{% url 'post_form' 'add' %}">Добавить пост</a></button></div>
+</div>
 {%include 'MainApp/posts.html'%}
 {% endblock %}
