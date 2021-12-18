@@ -16,7 +16,7 @@ from decimal import Decimal
 class MainPage(DataMixin, ListView):
     model = Post
     template_name = 'MainApp/main_page.html'
-    context_object_name = 'posts'
+    context_object_name = 'post'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
