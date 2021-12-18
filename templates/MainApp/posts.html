@@ -1,33 +1,67 @@
 {% load static %}
+{% load main_tags %}
 {%include 'MainApp/map.html'%}
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 <div class="posts_wrap">
-    {% if posts %}
-        {% for post in posts %}
-            <div class="post_wrap">
-                <div class="post_user_info">
-                    <div class="post_user_image_wrap">
-                        {% if post.author.avatar %}
-                            <image class="post_user_image" src = "{{ post.author.avatar.url }}"></image>
-                        {% else %}
-                            <img class="post_user_image" src='https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'>
-                        {% endif %}
-                    </div>
-                    <div class="post_user_name">{{ post.author.user.username }}</div>
+{% if post %}
+    {% for p in post.all %}
+        <div class="post_wrap">
+            <div class="post_user_info">
+                <div class="post_user_image_wrap">
+                    {% if p.author.avatar %}
+                        <image class="post_user_image" src = "{{ p.author.avatar.url }}"></image>
+                    {% else %}
+                        <img class="post_user_image" src='https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'>
+                    {% endif %}
                 </div>
-                <div class="post_content">
-                    <div class="post_title">{{post.title}}</div>
-                    <div class="post_text">{{post.text}}</div>
-                    <div class="post_images_wrapper">
-                        {% for i in post.images %}
-                            <image src = "{{ i.img.url }}"></image>
-                        {% endfor %}
+                <div class="post_user_name">{{ p.author.user.username }}</div>
+            </div>
+            <div class="post_content">
+                <div class="post_title">{{p.title}}</div>
+                <div class="post_text">{{p.text}}</div>
+                <div class="post_images_wrapper">
+                    {% if p.gallery %}
+                    <div class="ant-carousel" id="carousel-{{ p.pk }}">
+                        <div class="ant-carousel-hider">
+                            <ul class="ant-carousel-list">
+                                {% for i in p.gallery.all %}
+                                <li class="ant-carousel-element">
+                                    <img src="{% get_rand_img_url i.img.url %}" alt="{{ i.pk }}">                            
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="ant-carousel-arrow-left">
+                            <span class="material-icons-round">
+                                chevron_left
+                            </span>
+                        </div>
+                        <div class="ant-carousel-arrow-right">
+                            <span class="material-icons-round">
+                                chevron_right
+                            </span>
+                        </div>
+                        <div class="ant-carousel-dots"></div>
                     </div>
-                    <div class="place_lat_long">
-                        <input type="text" id="post_lat" name = "lat" value = "{{post.lat}}">
-                        <input type="text" id="post_lng" name = "lng" value = "{{post.lng}}">
-                    </div>
+                    <script>new Ant("carousel-{{ p.pk }}");</script>
+                    {% endif %}
+                </div>
+                <div class="place_lat_long">
+                    <input type="text" id="post_lat" name = "lat" value = "{{p.lat}}">
+                    <input type="text" id="post_lng" name = "lng" value = "{{p.lng}}">
+                </div>
+                <div class="post_add_map_button">
+                    <span class="material-icons-round">
+                        expand_more
+                    </span>
+                    <p>Нажмите, чтобы посмотреть местоположение</p>                   
                 </div>
             </div>
-        {% endfor %}
-    {% endif %}
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Пока нет публикаций</p>
+{% endif %}
 </div>
+
+<link rel="stylesheet" href="{% static 'css/posts.css' %}">

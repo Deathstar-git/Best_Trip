@@ -106,7 +106,7 @@ def post_form(request, parameter):
 
 def page_with_all_posts(request):
     posts = Post.objects.order_by("-date_upload")
-    return render(request, "MainApp/page_with_all_posts.html", {'posts': posts, 'title': 'Лента'})
+    return render(request, "MainApp/page_with_all_posts.html", {'post': posts, 'title': 'Лента'})
 
 
 class ProfilePage(DataMixin, ListView):

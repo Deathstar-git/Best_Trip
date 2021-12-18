@@ -1,0 +1,98 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+.posts_wrap{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.post_wrap{
+    grid-column: 2;
+    width: 500px;
+    padding: 15px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin: 20px 0px;
+}
+
+.post_user_info{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    padding: 20px 0px;
+}
+
+.post_user_image_wrap{
+    width: 70px;
+    height: 70px;
+    border-radius: 70px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post_user_image{
+    height: 100%;
+}
+
+.post_user_name{
+    padding-left: 20px;
+}
+
+.post_title{
+    font-size: 30px;
+    padding-bottom: 20px;
+}
+
+.place_lat_long{
+    position: absolute;
+    visibility: hidden;
+}
+
+.post_images_wrapper{
+    padding-bottom: 30px;
+}
+
+.post_add_map_button{
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    line-height: 0;
+    padding: 10px 0px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.post_add_map_button:hover{
+    background-color: rgba(110, 110, 110, 0.2);
+}
+
+.material-icons-round{
+    font-size: 30px;
+}
+
+.ant-carousel{
+    border: none;
+}
+
+.ant-carousel-arrow-right{
+    line-height: 0;
+}
+
+.ant-carousel-arrow-left{
+    line-height: 0;
+}
+
+#map{
+    position: absolute;
+    visibility: hidden;
+}

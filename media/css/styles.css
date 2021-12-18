@@ -376,10 +376,6 @@ div.image-container {
   scrollbar-width: 0px;
 }
 
-*::-webkit-scrollbar {
-  width: 0;
-}
-
 *::-webkit-scrollbar-track {
   background: transparent;
 }
@@ -642,8 +638,8 @@ ol, li {
 /* Navigation item styles */
 div.ant-carousel-arrow-left,
 div.ant-carousel-arrow-right {
-  width: 22px;
-  height: 40px;
+  width: auto;
+  height: auto;
   position: absolute;
   cursor: pointer;
   opacity: 0.6;
@@ -651,17 +647,17 @@ div.ant-carousel-arrow-right {
 }
 
 div.ant-carousel-arrow-left {
-  left: -40px;
+  left: -50px;
   top: 40%;
   display: block;
-  background: url("../images/ant-arrow-left.png") no-repeat;
+  /* background: url("../images/ant-arrow-left.png") no-repeat; */
 }
 
 div.ant-carousel-arrow-right {
-  right: -40px;
+  right: -50px;
   top: 40%;
   display: block;
-  background: url("../images/ant-arrow-right.png") no-repeat;
+  /* background: url("../images/ant-arrow-right.png") no-repeat; */
 }
 
 div.ant-carousel-arrow-left:hover {
