@@ -43,9 +43,9 @@ ul.header_ul{
 	/*margin-top: 15px;*/
 	font-size: 20px;
 }
- .logo_div {
+ /* .logo_div {
 	 margin-top: 15px;
- }
+ } */
 
 .input-search {
 	width: 400px;
@@ -63,7 +63,7 @@ ul.header_ul{
 	display: flex;
     align-items: center;
     justify-content: space-around;
-    position: sticky;
+    position: absolute;
 	height: var(--header-outer-height);
 	top:calc(
     var(--header-height-difference) * -1);
