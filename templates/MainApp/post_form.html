@@ -1,24 +1,22 @@
+{% extends 'MainApp/base.html'%}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
+{% block content %}
+     <link type="text/css" href="{% static 'css/post_form_styles.css' %}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    <link type="text/css" href="{% static 'css/post_form_styles.css' %}" rel="stylesheet"/>
-</head>
-<body>
     <div class="place_form_wrap">
         <form id="place_form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <input type="text" name="title" placeholder="Заголовок поста" autocomplete="off" value="{{post.title}}">
-            <textarea name="text" cols="30" rows="10" placeholder="Ваши впечатления от поездки">{{post.text}}</textarea>
-            <input name="gallery" type="file" accept="image/*" id="image-upload" multiple value="{{image_list}}">
+            <div class="input_form_post">
+            <input class="form-input" type="text" name="title" placeholder="Заголовок поста" autocomplete="off" value="{{post.title}}">
+            <textarea class="form-input" name="text" cols="30" rows="10" placeholder="Ваши впечатления от поездки">{{post.text}}</textarea>
+            <input  name="gallery" type="file" accept="image/*" id="image-upload" multiple value="{{image_list}}">
             <div id="map_input_wrapper">
-                <input id="map_input" type="text" name="place_name" placeholder="Введите название города" value="{{post.place_name}}">
+                <input class="form-input" id="map_input" type="text" name="place_name" placeholder="Введите название города" value="{{post.place_name}}">
             </div>
+                </div>
             {%include 'MainApp/map.html'%}
-            <button class="submitButton" type="submit">Сохранить</button>
+            <button class="save_post_button" type="submit">Сохранить</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}
