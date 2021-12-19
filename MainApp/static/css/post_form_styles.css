@@ -6,13 +6,8 @@
 
 .post_form_wrap{
     display: grid;
-<<<<<<< HEAD
     grid-template-columns: 1fr 1.5fr 1fr;
     padding: 80px 0px 30px 0px;
-=======
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 80px 0 30px 0;
->>>>>>> main
 }
 
 #post_form{
