@@ -41,19 +41,22 @@ body {
 /* Это свойство заставляет фон менять масштаб при изменении размеров содержащего его контейнера*/   background-size: cover;
 /* Цвет фона, который будет отображаться при загрузке фоновой картинки*/   background-color: #464646;
 }
-/*#background {*/
-/*   position: fixed;*/
-/*    top:0;*/
-/*    left:0;*/
-/*    bottom:0;*/
-/*    right: 0;*/
-/*    background-image: url('../images/background.jpg');*/
-/*    background-repeat: no-repeat;*/
-/*    background-size: cover;*/
-/*    background-position: 50%;*/
-/*    -webkit-filter: blur(3px);*/
-/*    z-index: -1;*/
-/*}*/
+#background {
+   position: fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right: 0;
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+    -webkit-filter: blur(3px);
+    z-index: -1;
+}
+#img_back {
+
+}
 
 
 ul {
