@@ -11,7 +11,7 @@
                 <input class="form-input" type="text" name="title" placeholder="Введите заголовок поста" autocomplete="off" value="{{post.title}}" required>
                 <textarea class="post_form_textarea form-input" name="text" cols="30" rows="10" placeholder="Ваши впечатления от поездки">{{post.text}}</textarea>
                 <div class="post_form_img_upload_wrapper">
-                    <label class="post_form_img_upload_label" for="image-upload">Добавьте фотографии</label>
+                    <label class="post_form_img_upload_label" for="image-upload">Добавьте фотографии:</label>
                     <input  name="gallery" type="file" accept="image/*" id="image-upload" multiple value="{{image_list}}">
                 </div>
                 <input class="form-input" id="map_input" type="text" name="place_name" placeholder="Введите название города" value="{{post.place_name}}" required>

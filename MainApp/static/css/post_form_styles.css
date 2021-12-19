@@ -72,3 +72,11 @@
 .pac-item{
     padding: 5px;
 }
+.form-input {
+    width:100%;
+    border-radius: 5px;
+    border-color: lightgray;
+    border-style: solid;
+    padding: 5px;
+
+}

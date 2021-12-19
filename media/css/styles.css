@@ -331,7 +331,7 @@ div.image-container {
 
 .form-input {
 	border-radius: 10px;
-    font-size: 22px;
+    font-size: 20px;
 	width: 300px;
 
 }
@@ -650,7 +650,6 @@ ol, li {
   margin: 50px auto auto;
   padding-top: 10px;
   border: 1px solid #ccd;
-  background-color: white;
 }
 
 .ant-carousel-element {
