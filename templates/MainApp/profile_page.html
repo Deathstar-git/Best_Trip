@@ -1,7 +1,6 @@
 {% extends 'MainApp/base.html'%}
 {% block content %}
 {% load main_tags %}
-<<<<<<< HEAD
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 
@@ -26,7 +25,6 @@
     {% endif %}
 </div>
 <div class="posts_header">Мои посты</div>
-=======
 <div class="account-info">
 {% if request.user.is_authenticated %}
 <h1>{{ title }} {{ request.user.username }} | <a class="a-logout" href="{% url 'logout' %}"
@@ -37,6 +35,5 @@
 <div><img class="avatar_img" src="{% get_account_avatar request.user.pk %}?" alt=""></div>
 <div><button class="add_post_button"><a href="{% url 'post_form' 'add' %}">Добавить пост</a></button></div>
 </div>
->>>>>>> 201b5b44ec64dfe7cc429743e6477364262965f6
 {%include 'MainApp/posts.html'%}
 {% endblock %}

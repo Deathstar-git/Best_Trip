@@ -4,6 +4,11 @@ let map_background = document.querySelector('.map_background')
 let lat_input = document.getElementById('place_lat')
 let lng_input = document.getElementById('place_lng')
 let map_input = document.getElementById('map_input')
+let map_draggable = false
+
+if(map_input){
+    map_draggable = true
+}
 
 function update_coordinate_inputs(lat, lng) {
     lat_input.value = lat;
@@ -37,6 +42,7 @@ function initMap() {
     let options = {
         center: location,
         zoom: 8,
+        draggable: map_draggable
     }
 
     if (navigator.geolocation) {
@@ -100,7 +106,6 @@ function map_anim(map){
             post_add_map_button.addEventListener("click", function () {
                 map_wrap.classList.add("map_wrap_visible")
                 map_background.classList.add("map_background_visible")
-                console.log(post_location)
                 map.panTo(post_location)
                 marker.setPosition(post_location)
             })
